@@ -1,0 +1,13 @@
+.TodoCard{
+    width: 600px;
+    height: 100px;
+    background-color: white;
+    box-shadow: 4px 4px 20px rgba(105, 105, 5, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.TodoCard button{
+    height: 50px;
+}

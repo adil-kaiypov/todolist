@@ -4,12 +4,7 @@ import Input from "../Input/Input";
 import classes from "./modal.module.css";
 
 
-const Modal = ({handleShow}) =>{
-    const [text, setText] = useState();
-    const handleChangeText = (textInput) =>{
-        console.log(text);
-        setText(textInput);
-    };
+const Modal = ({handleShow, handleChangeCheck, handleAdd}) =>{
     return(
         <>
             <div className={classes.modalWrapper}>
@@ -19,8 +14,12 @@ const Modal = ({handleShow}) =>{
                 <Button handleClick={handleShow}>
                     Закрыть модалку
                 </Button>
-                <Input name="add" placeholder="Добавьте таск" onChange={(event) => handleChangeText(event.target.value)}/>
-                <Button>
+                <Input  
+                        name="add" 
+                        placeholder="Добавьте таск" 
+                        onChangeFunc={handleChangeCheck}
+                />
+                <Button handleClick={handleAdd}>
                     Добавить таск
                 </Button>
             </div>

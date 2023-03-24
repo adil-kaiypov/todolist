@@ -1,8 +1,9 @@
 import React from 'react';
+import TodoCard from '../TodoCard/TodoCard';
 
-const List = (props) =>{
+const List = ({list, handleDelete}) =>{
     return(
-        props.list.map((el) => <li key={el.id}>{el.task}</li>)
+        list.map(el => <TodoCard el={el} handleDelete={handleDelete}></TodoCard>)
     );
 };
 

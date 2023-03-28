@@ -11,3 +11,7 @@
 .TodoCard button{
     height: 50px;
 }
+
+.done h5{
+    text-decoration: line-through;
+}

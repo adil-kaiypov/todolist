@@ -7,7 +7,7 @@ import classes from "./modal.module.css";
 const Modal = ({handleShow, handleChangeCheck, handleAdd}) =>{
     return(
         <>
-            <div className={classes.modalWrapper}>
+            <div className={classes.modalWrapper} onClick={handleShow}>
 
             </div>
             <div className={classes.modalContent}>

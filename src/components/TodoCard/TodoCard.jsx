@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ButtonAction from '../ButtonAction/ButtonAction';
 import classes from './todocard.module.css'
 const TodoCard = ({ 
   task, 
@@ -25,11 +26,16 @@ const TodoCard = ({
       </div>
     };
   return (
-    <div className={task.completed ? classes.TodoCard + " " + classes.done : classes.TodoCard}>
-        <h5>{task.title}</h5>
-        <button onClick={() => handleSelectCurrent(task.id)}>Edit</button>
-        <button onClick={() => handleDone(task.id)}>Done</button>
-        <button onClick={() => handleDelete(task.id)}>Delete</button>
+    <div className={task.completed ? classes.TodoCard + " " + classes.isDone : classes.TodoCard}>
+      <div className={classes.todoTitle}>
+        <h5>{task.title}</h5> 
+      </div>
+        <div className={classes.buttonGroup}>
+          <ButtonAction type={'edit'} task={task} handleClick={handleSelectCurrent}>Edit</ButtonAction>
+          <ButtonAction type={'done'} task={task} handleClick={handleDone}>Done</ButtonAction>
+          <ButtonAction type={'delete'} task={task} handleClick={handleDelete}>Delete</ButtonAction>          
+        </div>
+
     </div>
   )
 }

@@ -12,6 +12,18 @@
     height: 50px;
 }
 
-.done h5{
+.isDone h5{
     text-decoration: line-through;
+}
+
+.buttonGroup{
+    width: 40%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.classesTodo{
+    width: 60%;
 }

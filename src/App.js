@@ -5,6 +5,14 @@ import Button from './components/Button/Button';
 import List from './components/List/List';
 
 function App() {
+
+  const taskFilters = ["Все таски", "Выполненные", "Не выполненные"];
+  const [taskFilter, setTaskFilter] = useState('');
+  const options = taskFilters.map((task, index) => {
+    return <option key={index}>{task}</option>
+  }); 
+  const [filteredTasks, setFilteredTasks] = useState([]);
+
   const [ show, setShow ] = useState(false);
   const [ newTask, setNewTask ] = useState('');
   const [ tasks, setTasks ] = useState([
@@ -12,23 +20,7 @@ function App() {
       id: 1,
       title: 'Coding',
       completed: false
-    },
-    {
-      id: 2,
-      title: 'Eat',
-      completed: false
-    },
-    {
-      id: 3,
-      title: 'Sleep',
-      completed: false
-    },
-    {
-      id: 4,
-      title: 'Coding',
-      completed: false
-    },
-
+    }
   ])
   const handleShow  = () => setShow(!show)
   
@@ -52,6 +44,10 @@ const handleDelete = (id) => {
   /// filter
 }
 
+const handleDeleteAll = () => {
+  setTasks([]);
+}
+
 const handleDone = (id) => {
   // const currentIndex = tasks.findIndex(task => task.id === id )
   tasks.map(task => {
@@ -62,6 +58,7 @@ const handleDone = (id) => {
   })
 setTasks([...tasks])
 }
+
 const handleEdit = (editTodo) => {
 
  const editList = tasks.map(task => {
@@ -73,9 +70,26 @@ const handleEdit = (editTodo) => {
   setTasks([...editList])
 } 
 
-// useEffect(() => {
-//   console.log('log useEffect');
-// }, [ tasks,show ])
+useEffect(() => {
+  const myLocalList = JSON.parse(localStorage.getItem('tasks')); 
+  if(myLocalList.length !== 0){
+    setTasks(myLocalList);
+  }
+}, []);
+
+useEffect(() => {
+  if(taskFilter === 'Выполненные'){
+    setFilteredTasks(tasks.filter(task => task.completed === true));
+  } else if(taskFilter === 'Не выполненные'){
+    setFilteredTasks(tasks.filter(task => task.completed === false));
+  } else {
+    setFilteredTasks(tasks);
+  }
+}, [taskFilter, tasks])
+
+useEffect(() => {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}, [tasks]);
 
   return (
     <div className="App">
@@ -88,12 +102,18 @@ const handleEdit = (editTodo) => {
         Открыть модалку
       </Button>
 
-      
+      <select value={taskFilter} onChange={event => setTaskFilter(event.target.value)}>
+        {options}
+      </select>
   <List 
   handleDelete={handleDelete}
   handleDone={handleDone}
   handleEdit={handleEdit}
-  list={tasks} />
+  list={filteredTasks} />
+
+    <Button handleClick={handleDeleteAll}>
+      Удалить ВСЕ таски
+    </Button>
     </div>
   );
 }
